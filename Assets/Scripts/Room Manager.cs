@@ -14,7 +14,7 @@ public class RoomManager: MonoBehaviour
     #region Serialized Fields
 
 
-    [SerializeField] private Transform _roomStorage;    // 
+    [SerializeField] private RectTransform _roomStorage;    // 
     [SerializeField] private int _currentRoomIndex;     // 
 
     [Space]
@@ -26,14 +26,25 @@ public class RoomManager: MonoBehaviour
 
     #endregion
 
+    #region Private Fields
+
+
+    private Vector2[] _roomSizeDeltas;
+
+
+    #endregion
+
     #region MonoBehavior Callbacks
 
 
     protected void Awake()
     {
+        _roomSizeDeltas = new Vector2[_roomStorage.childCount];
+
         for (int i = 0; i < _roomStorage.childCount; i++)
         {
             _roomStorage.GetChild(i).gameObject.SetActive(false);
+            _roomSizeDeltas[i] = _roomStorage.GetChild(i).GetComponent<RectTransform>().sizeDelta;
         }
 
         LoadRoom(_currentRoomIndex);
@@ -51,11 +62,17 @@ public class RoomManager: MonoBehaviour
     /// <param name="index"></param>
     public void LoadRoom(int index)
     {
+        //Debug.Log(_roomStorage.GetComponent<RectTransform>().sizeDelta);
+
         _roomStorage.GetChild(_currentRoomIndex).gameObject.SetActive(false);
+        //Debug.Log(_roomStorage.GetChild(_currentRoomIndex).GetComponent<RectTransform>().sizeDelta);
 
         _currentRoomIndex = index;
 
+        _roomStorage.sizeDelta = _roomSizeDeltas[_currentRoomIndex];
+        _roomStorage.GetChild(_currentRoomIndex).GetComponent<RectTransform>().sizeDelta = Vector2.zero;
         _roomStorage.GetChild(_currentRoomIndex).gameObject.SetActive(true);
+        //Debug.Log(_roomStorage.GetChild(_currentRoomIndex).GetComponent<RectTransform>().sizeDelta);
     }
 
     /// <summary>
