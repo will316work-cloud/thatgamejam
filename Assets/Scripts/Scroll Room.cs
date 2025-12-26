@@ -13,7 +13,16 @@ public class ScrollRoom : MonoBehaviour
 
 
     [SerializeField] private Scrollbar _scroller;                   // 
+    [SerializeField] private RectTransform _roomContainer;          // 
     [Range(-1f, 1f)] [SerializeField] private float _scrollSpeed;   // 
+
+
+    #endregion
+
+    #region Constants
+
+
+    private float SPEED_CONVERSION = 2000;  // 
 
 
     #endregion
@@ -31,7 +40,7 @@ public class ScrollRoom : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _scroller.value += _scrollSpeed * Time.deltaTime;
+        _scroller.value += _scrollSpeed * SPEED_CONVERSION / _roomContainer.sizeDelta.x * Time.deltaTime;
     }
 
 
