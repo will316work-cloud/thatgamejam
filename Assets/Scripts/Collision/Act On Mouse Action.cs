@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-using UnityEngine.InputSystem;
-
 namespace Intersection
 {
+    /// <summary>
+    /// 
+    /// 
+    /// Author: William Min
+    /// Date: 12/21/25
+    /// </summary>
     public abstract class ActOnMouseAction : ActOnIntersect
     {
         #region Serialized Fields
