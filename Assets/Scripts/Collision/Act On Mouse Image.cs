@@ -2,13 +2,19 @@ using UnityEngine.EventSystems;
 
 namespace Intersection
 {
+    /// <summary>
+    /// 
+    /// 
+    /// Author: William Min
+    /// Date: 12/21/25
+    /// </summary>
     public class ActOnMouseImage : ActOnMouseAction, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         #region Private Fields
 
 
-        private bool _hasEntered;
-        private bool _hasClicked;
+        private bool _hasEntered;   // 
+        private bool _hasClicked;   // 
 
 
         #endregion
@@ -29,6 +35,16 @@ namespace Intersection
             }
         }
 
+
+        #endregion
+
+        #region Public Methods
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerEnter(PointerEventData eventData)
         {
             _activateEnterEvents(_cameraObject);
@@ -36,6 +52,10 @@ namespace Intersection
             _hasEntered = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerExit(PointerEventData eventData)
         {
             _activateExitEvents(_cameraObject);
@@ -44,6 +64,10 @@ namespace Intersection
             _hasClicked = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerDown(PointerEventData eventData)
         {
             _activatePressEvents(_cameraObject);
@@ -51,6 +75,10 @@ namespace Intersection
             _hasClicked = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerUp(PointerEventData eventData)
         {
             _activateReleaseEvents(_cameraObject);

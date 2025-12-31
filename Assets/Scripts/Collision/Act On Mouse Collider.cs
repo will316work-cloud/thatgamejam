@@ -1,5 +1,11 @@
 namespace Intersection
 {
+    /// <summary>
+    /// 
+    /// 
+    /// Author: William Min
+    /// Date: 12/21/25
+    /// </summary>
     public class ActOnMouseCollider : ActOnMouseAction
     {
         #region MonoBehavior Callbacks
