@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// 
+/// Event container for setting up a stage.
 /// 
 /// Author: William Min
 /// Date: 12/30/25
@@ -26,6 +26,7 @@ public class RoomSetup : MonoBehaviour
     /// <summary>
     /// Sets up the stage
     /// </summary>
+    [ContextMenu("Set Up Stages")]
     public void SetUpStage()
     {
         DoOnStageSetup?.Invoke();

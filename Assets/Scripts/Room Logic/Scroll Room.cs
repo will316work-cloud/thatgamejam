@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using Intersection;
+
 /// <summary>
 /// 
 /// 
@@ -12,9 +14,13 @@ public class ScrollRoom : MonoBehaviour
     #region Serialized Fields
 
 
+    [Range(-1f, 1f)] [SerializeField] private float _scrollSpeed;   // 
+
+    [Header("Scroll Room References")]
     [SerializeField] private Scrollbar _scroller;                   // 
     [SerializeField] private RectTransform _roomContainer;          // 
-    [Range(-1f, 1f)] [SerializeField] private float _scrollSpeed;   // 
+    [SerializeField] private Image _leftScrollerBox;                // 
+    [SerializeField] private Image _rightScrollerBox;               // 
 
 
     #endregion
@@ -40,7 +46,23 @@ public class ScrollRoom : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Move scroller based on scroll speed
         _scroller.value += _scrollSpeed * SPEED_CONVERSION / _roomContainer.sizeDelta.x * Time.deltaTime;
+
+        // Enable or disable image targets
+        _leftScrollerBox.raycastTarget = true;
+        _rightScrollerBox.raycastTarget = true;
+
+        if (_scroller.value <= 0)
+        {
+            _scroller.value = 0;
+            _leftScrollerBox.raycastTarget = false;
+        }
+        else if (_scroller.value >= _scroller.size)
+        {
+            _scroller.value = _scroller.size;
+            _rightScrollerBox.raycastTarget = false;
+        }
     }
 
 
