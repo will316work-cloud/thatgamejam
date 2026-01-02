@@ -78,12 +78,37 @@ public class RoomManager: MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="indexStep"></param>
+    public void LoadNextRoom(int indexStep)
+    {
+        LoadRoom(_getNextIndex(indexStep));
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="index"></param>
     public void TransitionToRoom(int index)
     {
         StartCoroutine(_transitionToRoom(index));
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="indexStep"></param>
+    public void TransitionToNextRoom(int indexStep)
+    {
+        TransitionToRoom(_getNextIndex(indexStep));
+    }
+
+
+    #endregion
+
+    #region Private Methods
+
+
+    // 
     private IEnumerator _transitionToRoom(int index)
     {
         _player.Play(_fadeInIndex);
@@ -95,6 +120,23 @@ public class RoomManager: MonoBehaviour
         OnSwitchToRoom?.Invoke(_currentRoomIndex);
 
         _player.Play(_fadeOutIndex);
+    }
+
+    // 
+    private int _getNextIndex(int indexSteps)
+    {
+        int nextIndex = indexSteps + _currentRoomIndex;
+
+        if (nextIndex < 0)
+        {
+            nextIndex = nextIndex % _roomStorage.childCount + _roomStorage.childCount;
+        }
+        else if (nextIndex >= _roomStorage.childCount)
+        {
+            nextIndex = nextIndex % _roomStorage.childCount;
+        }
+
+        return nextIndex;
     }
 
 
