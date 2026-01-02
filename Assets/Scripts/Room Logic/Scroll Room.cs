@@ -58,9 +58,9 @@ public class ScrollRoom : MonoBehaviour
             _scroller.value = 0;
             _leftScrollerBox.raycastTarget = false;
         }
-        else if (_scroller.value >= _scroller.size)
+        else if (_scroller.value >= 1)
         {
-            _scroller.value = _scroller.size;
+            _scroller.value = 1;
             _rightScrollerBox.raycastTarget = false;
         }
     }
