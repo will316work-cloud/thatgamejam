@@ -13,23 +13,29 @@ public class RoomSetup : MonoBehaviour
 
 
     /// <summary>
-    /// Events called when setting the stage.
+    /// Events called to set up stage on awake.
     /// </summary>
-    public UnityEvent DoOnStageSetup;
+    public UnityEvent OnAwakeStage;
+
+    /// <summary>
+    /// Events called when opening a stage.
+    /// </summary>
+    public UnityEvent OnStageOpen;
 
 
     #endregion
 
-    #region Public Methods
+    #region Monobehavior Callbacks
 
 
-    /// <summary>
-    /// Sets up the stage
-    /// </summary>
-    [ContextMenu("Set Up Stages")]
-    public void SetUpStage()
+    private void Awake()
     {
-        DoOnStageSetup?.Invoke();
+        OnAwakeStage?.Invoke();
+    }
+
+    private void OnEnable()
+    {
+        OnStageOpen?.Invoke();
     }
 
 
