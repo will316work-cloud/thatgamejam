@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 namespace Intersection
 {
     /// <summary>
-    /// 
+    /// Area that triggers events based on whose mouse cursor interacts with image raycast.
     /// 
     /// Author: William Min
     /// Date: 12/21/25
@@ -13,8 +13,8 @@ namespace Intersection
         #region Private Fields
 
 
-        private bool _hasEntered;   // 
-        private bool _hasClicked;   // 
+        private bool _hasEntered;   // True if mouse cursor has entered the image raycast target
+        private bool _hasClicked;   // True if mouse cursor has clicked on the image raycast target
 
 
         #endregion
@@ -38,13 +38,9 @@ namespace Intersection
 
         #endregion
 
-        #region Public Methods
+        #region IPointer Callbacks
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="eventData"></param>
         public void OnPointerEnter(PointerEventData eventData)
         {
             _activateEnterEvents(_cameraObject);
@@ -52,10 +48,6 @@ namespace Intersection
             _hasEntered = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="eventData"></param>
         public void OnPointerExit(PointerEventData eventData)
         {
             _activateExitEvents(_cameraObject);
@@ -64,10 +56,6 @@ namespace Intersection
             _hasClicked = false;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="eventData"></param>
         public void OnPointerDown(PointerEventData eventData)
         {
             _activatePressEvents(_cameraObject);
@@ -75,10 +63,6 @@ namespace Intersection
             _hasClicked = true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="eventData"></param>
         public void OnPointerUp(PointerEventData eventData)
         {
             _activateReleaseEvents(_cameraObject);
