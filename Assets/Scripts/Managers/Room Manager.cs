@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// 
+/// Manages the selection, opening, and closing of stages in the game.
 /// 
 /// Author: William Min
 /// Date: 12/22/25
@@ -14,14 +14,19 @@ public class RoomManager: MonoBehaviour
     #region Serialized Fields
 
 
-    [SerializeField] private RectTransform _roomStorage;    // 
-    [SerializeField] private int _currentRoomIndex;     // 
+    [SerializeField] private RectTransform _roomStorage;    // Transform that contains all the stages
+    [SerializeField] private int _currentRoomIndex;         // Index of the currently opened stage
 
     [Space]
-    [SerializeField] private AnimationPlayer _player;   // 
-    [SerializeField] private int _fadeInIndex;          // 
-    [SerializeField] private int _fadeOutIndex;         // 
-    [Space] public UnityEvent<int> OnSwitchToRoom;      // 
+    [SerializeField] private AnimationPlayer _player;   // Reference to animation player playing the stage transition animations
+    [SerializeField] private int _fadeInIndex;          // Index of animation in animation player for fade-in transition
+    [SerializeField] private int _fadeOutIndex;         // Index of animation in animation player for fade-out transition
+    [Space] 
+    
+    /// <summary>
+    /// Events for when switching stages.
+    /// </summary>
+    public UnityEvent<int> OnSwitchToRoom;
 
 
     #endregion
@@ -29,7 +34,7 @@ public class RoomManager: MonoBehaviour
     #region Private Fields
 
 
-    private Vector2[] _roomSizeDeltas;
+    private Vector2[] _roomSizeDeltas;  // Stage dimensions for setting them up for scrolling
 
 
     #endregion
@@ -57,9 +62,9 @@ public class RoomManager: MonoBehaviour
 
 
     /// <summary>
-    /// 
+    /// Loads the stage on the given index.
     /// </summary>
-    /// <param name="index"></param>
+    /// <param name="index">Index of stage to be loaded</param>
     public void LoadRoom(int index)
     {
         //Debug.Log(_roomStorage.GetComponent<RectTransform>().sizeDelta);
@@ -76,27 +81,29 @@ public class RoomManager: MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Loads the next or previous stage based on the number of steps.
+    /// Positive values represent next stages, and negative values represent previous stages.
     /// </summary>
-    /// <param name="indexStep"></param>
+    /// <param name="indexStep">Number of steps of index for the next stage</param>
     public void LoadNextRoom(int indexStep)
     {
         LoadRoom(_getNextIndex(indexStep));
     }
 
     /// <summary>
-    /// 
+    /// Loads the stage on the given index with a transition animation.
     /// </summary>
-    /// <param name="index"></param>
+    /// <param name="index">Index of stage to be loaded</param>
     public void TransitionToRoom(int index)
     {
         StartCoroutine(_transitionToRoom(index));
     }
 
     /// <summary>
-    /// 
+    /// Loads the next or previous stage based on the number of steps with a transition animation.
+    /// Positive values represent next stages, and negative values represent previous stages.
     /// </summary>
-    /// <param name="indexStep"></param>
+    /// <param name="indexStep">Number of steps of index for the next stage</param>
     public void TransitionToNextRoom(int indexStep)
     {
         TransitionToRoom(_getNextIndex(indexStep));
@@ -108,7 +115,7 @@ public class RoomManager: MonoBehaviour
     #region Private Methods
 
 
-    // 
+    // Enacts the transition animation for transitioning between stages
     private IEnumerator _transitionToRoom(int index)
     {
         _player.Play(_fadeInIndex);
@@ -122,7 +129,7 @@ public class RoomManager: MonoBehaviour
         _player.Play(_fadeOutIndex);
     }
 
-    // 
+    // Returns the next valid index based on the given "next steps" value
     private int _getNextIndex(int indexSteps)
     {
         int nextIndex = indexSteps + _currentRoomIndex;

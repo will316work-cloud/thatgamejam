@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace Intersection
 {
     /// <summary>
-    /// 
+    /// Area that triggers events based on whose mouse cursor interacts with it.
     /// 
     /// Author: William Min
     /// Date: 12/21/25
@@ -101,21 +101,25 @@ namespace Intersection
         #region Private Methods
 
 
+        // Activates the events that happen when clicking on area
         protected void _activatePressEvents(GameObject collidedObject)
         {
             _activateEvents(collidedObject, _willRespondToPress, PressEventPassOwner, PressEventPassCollided);
         }
 
+        // Activates the events that happen when dragging on area
         protected void _activateDragEvents(GameObject collidedObject)
         {
             _activateEvents(collidedObject, _willRespondToDrag, DragEventPassOwner, DragEventPassCollided);
         }
 
+        // Activates the events that happen when releasing from a click
         protected void _activateReleaseEvents(GameObject collidedObject)
         {
             _activateEvents(collidedObject, _willRespondToRelease, ReleaseEventPassOwner, ReleaseEventPassCollided);
         }
 
+        // Activates the events that happen when releasing from a click on the previous clicked area
         protected void _activateReleaseOnPressedEvents(GameObject collidedObject)
         {
             _activateEvents(_cameraObject, _willRespondToReleaseOnPressed, ReleaseOnPressedEventPassOwner, ReleaseOnPressedEventPassCollided);

@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-using Intersection;
-
 /// <summary>
-/// 
+/// Handles the scrolling of rooms and its interactions.
 /// 
 /// Author: William Min
 /// Date: 12/22/25
@@ -14,13 +12,13 @@ public class ScrollRoom : MonoBehaviour
     #region Serialized Fields
 
 
-    [Range(-1f, 1f)] [SerializeField] private float _scrollSpeed;   // 
+    [Range(-1f, 1f)] [SerializeField] private float _scrollSpeed;   // Current speed of scrolling the room
 
     [Header("Scroll Room References")]
-    [SerializeField] private Scrollbar _scroller;                   // 
-    [SerializeField] private RectTransform _roomContainer;          // 
-    [SerializeField] private Image _leftScrollerBox;                // 
-    [SerializeField] private Image _rightScrollerBox;               // 
+    [SerializeField] private Scrollbar _scroller;                   // Scroll bar that handles the scrolling
+    [SerializeField] private RectTransform _roomContainer;          // Transform that contains the stages of the game
+    [SerializeField] private Image _leftScrollerBox;                // Image raycast target for left scroller box
+    [SerializeField] private Image _rightScrollerBox;               // Image raycast target for right scroller box
 
 
     #endregion
@@ -28,7 +26,7 @@ public class ScrollRoom : MonoBehaviour
     #region Constants
 
 
-    private float SPEED_CONVERSION = 2000;  // 
+    private float SPEED_CONVERSION = 2000f;  // Conversion modifier of scroll speed
 
 
     #endregion
@@ -72,9 +70,9 @@ public class ScrollRoom : MonoBehaviour
 
 
     /// <summary>
-    /// 
+    /// Sets the speed to scroll along a window.
     /// </summary>
-    /// <param name="newSpeed"></param>
+    /// <param name="newSpeed">New scroll speed</param>
     public void SetScrollSpeed(float newSpeed)
     {
         _scrollSpeed = newSpeed;

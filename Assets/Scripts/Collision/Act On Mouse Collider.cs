@@ -1,7 +1,7 @@
 namespace Intersection
 {
     /// <summary>
-    /// 
+    /// Area that triggers events based on whose mouse cursor interacts with collider.
     /// 
     /// Author: William Min
     /// Date: 12/21/25
